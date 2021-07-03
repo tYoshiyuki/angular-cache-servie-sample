@@ -1,6 +1,9 @@
-# AngularCacheServieSample
+# angular-cache-servie-sample
+Angular で BehaviorSubject を用いたキャッシュサービスのサンプルです
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
+## Feature
+- Angular12
+- rxjs
 
 ## Development server
 
