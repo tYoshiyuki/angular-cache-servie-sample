@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
+import { take } from "rxjs/operators";
 
 /**
  * HTTPリクエスト伴うキャッシュデータを扱うためのサービスです。
@@ -20,7 +21,7 @@ export abstract class AbstractHttpCacheService<T> {
     if (this.subject$.getValue().length === 0) {
       return this.fetch();
     }
-    return this.subject$.asObservable();
+    return this.subject$.asObservable().pipe(take(1));
   }
 
   /**

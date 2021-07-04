@@ -18,7 +18,7 @@ describe('SampleUserService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('データを正しく取得出来ること。', () => {
+  it('データを正しく取得出来ること。', async () => {
     // Arrange
     const response = [{
       id: 1,
@@ -27,10 +27,7 @@ describe('SampleUserService', () => {
       phone: "001-001-001",
     }] as SampleUser[];
 
-    service.get().subscribe((x) => {
-      expect(x).toBe(response);
-    });
-
+    const promise = service.get().toPromise();
     const request = controller.expectOne('https://jsonplaceholder.typicode.com/users');
     expect(request.request.method).toBe('GET');
 
@@ -38,10 +35,11 @@ describe('SampleUserService', () => {
     request.flush(response);
 
     // Assert
+    expect(await promise).toBe(response);
     controller.verify();
   });
 
-  it('複数回呼び出した場合に、2回目以降キャッシュから取得出来ること。また、データを正しく取得出来ること。', () => {
+  it('複数回呼び出した場合に、2回目以降キャッシュから取得出来ること。また、データを正しく取得出来ること。', async () => {
     // Arrange
     const response = [{
       id: 1,
@@ -55,19 +53,12 @@ describe('SampleUserService', () => {
     request.flush(response);
 
     // Act
-    let result1: SampleUser[] = [];
-    let result2: SampleUser[] = [];
-    service.get().subscribe((x) => {
-      result1 = x;
-    });
-
-    service.get().subscribe((x) => {
-      result2 = x;
-    });
+    const promise1 = service.get().toPromise();
+    const promise2 = service.get().toPromise();
 
     // Assert
-    expect(result1).toBe(response);
-    expect(result2).toBe(response);
+    expect(await promise1).toBe(response);
+    expect(await promise2).toBe(response);
     controller.verify();
   });
 });
