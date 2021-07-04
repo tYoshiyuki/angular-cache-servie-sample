@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private service: SampleUserService) { }
 
   ngOnInit(): void {
-    this.getRanDomSampleUsers();
+    this.service.get().subscribe((x) => this.users = x);
   }
 
   onButtonClick(): void {

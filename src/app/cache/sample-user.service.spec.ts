@@ -35,7 +35,7 @@ describe('SampleUserService', () => {
     request.flush(response);
 
     // Assert
-    expect(await promise).toBe(response);
+    expect(await promise).toEqual(response);
     controller.verify();
   });
 
@@ -57,8 +57,8 @@ describe('SampleUserService', () => {
     const promise2 = service.get().toPromise();
 
     // Assert
-    expect(await promise1).toBe(response);
-    expect(await promise2).toBe(response);
+    expect(await promise1).toEqual(response);
+    expect(await promise2).toEqual(response);
     controller.verify();
   });
 });
