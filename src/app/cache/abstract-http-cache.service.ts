@@ -10,7 +10,7 @@ import { take } from "rxjs/operators";
 })
 export abstract class AbstractHttpCacheService<T> {
 
-  protected abstract subject$: BehaviorSubject<Array<T>>;
+  protected abstract subject$: BehaviorSubject<T[]>;
 
   /**
    * データを取得します。
@@ -28,5 +28,5 @@ export abstract class AbstractHttpCacheService<T> {
    * HTTPリクエストを用いてデータの取得を行います。
    * @protected
    */
-  protected abstract fetch(): Observable<Array<T>>;
+  protected abstract fetch(): Observable<T[]>;
 }

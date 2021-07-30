@@ -22,7 +22,7 @@ export interface SampleUser {
 })
 export class SampleUserService extends AbstractHttpCacheService<SampleUser>{
 
-  protected subject$: BehaviorSubject<Array<SampleUser>> = new BehaviorSubject<Array<SampleUser>>([]);
+  protected subject$: BehaviorSubject<SampleUser[]> = new BehaviorSubject<SampleUser[]>([]);
 
   constructor(private http: HttpClient) {
     super();
@@ -32,9 +32,9 @@ export class SampleUserService extends AbstractHttpCacheService<SampleUser>{
    * データを取得します。
    * @protected
    */
-  protected fetch(): Observable<Array<SampleUser>> {
+  protected fetch(): Observable<SampleUser[]> {
     return this.http
-      .get<Array<SampleUser>>('https://jsonplaceholder.typicode.com/users')
+      .get<SampleUser[]>('https://jsonplaceholder.typicode.com/users')
       .pipe(
         tap(x => this.subject$.next(x))
       );
